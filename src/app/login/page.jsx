@@ -1,4 +1,4 @@
-import LoginForm from '@/components/forms/Login/LoginForm'
+import LoginForm from '@/components/forms/LoginForm/LoginForm'
 import React from 'react'
 
 const Login = () => {
