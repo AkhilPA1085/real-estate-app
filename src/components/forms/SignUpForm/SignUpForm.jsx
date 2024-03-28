@@ -1,14 +1,19 @@
 "use client";
 import CustomButton from "@/components/common/Button/Button";
+import {userSignup} from "@/services/user.services";
 import { Card, Input, Typography } from "@mui/material";
+import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const SignUpForm = () => {
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
-    username:""
+    username: "",
   });
 
   const handleChange = (e) => {
@@ -19,10 +24,23 @@ const SignUpForm = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(credentials);
+    setLoading(true);
+    try {
+      const res = await userSignup(credentials);
+      console.log('User created successfully', res);
+      if(res){
+        router.push('/login');
+      }
+    } catch (error) {
+      console.error('User creation failed', error);
+    } finally {
+      setLoading(false);
+    }
   };
+  
+
   return (
     <Card className="p-5">
       <Typography variant="h6">Create Your Account</Typography>
@@ -48,7 +66,9 @@ const SignUpForm = () => {
           value={credentials.password}
           onChange={handleChange}
         />
-        <CustomButton type="submit">Create Account</CustomButton>
+        <CustomButton type="submit">
+          {loading ? "Processing..." : "Create Account"}
+        </CustomButton>
         <CustomButton outlined>Create account with Google</CustomButton>
         <Link href="/login">Already have an account?</Link>
       </form>
