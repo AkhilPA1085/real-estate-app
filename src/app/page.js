@@ -39,5 +39,4 @@ export default function Home() {
    <br/>
     <CustomButton onClick={handleLogout}>Logout</CustomButton>
     </>
-  );
 }
