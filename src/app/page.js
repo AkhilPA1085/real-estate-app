@@ -38,5 +38,5 @@ export default function Home() {
    <p>email:</p> <strong> {userData?.email} </strong>
    <br/>
     <CustomButton onClick={handleLogout}>Logout</CustomButton>
-    </>
+    </>)
 }
