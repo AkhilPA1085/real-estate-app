@@ -22,7 +22,6 @@ const LoginForm = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(loginCredentials);
     try {
       setLoading(true);
       const response = await userLogin(loginCredentials);
